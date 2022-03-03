@@ -1,5 +1,6 @@
 const fs = require('fs');
 const fsP = require('fs/promises');
+const { __decryptMsg } = require('./encryption');
 
 function __checkIfDatabaseExists() {
     let __folders = fs.readdirSync('./'); // get list of all files and folders
@@ -24,7 +25,10 @@ function __rGroupIsAuthentic(dbDir, rGroup) {
     // check if all files have the same keys
     let __keys = []; // this array will contains arrays of keys of all elements
     __files.forEach(__file => {
-        __keys.push(Object.keys(JSON.parse(fs.readFileSync('./' + dbDir + '/' + rGroup + '/' + __file)))); // get keys of each element
+        let __fileObjRaw = JSON.parse(fs.readFileSync('./' + dbDir + '/' + rGroup + '/' + __file))["info"];
+        let __fileObj = JSON.parse(__decryptMsg(__fileObjRaw));
+        let __fileKeys = Object.keys(__fileObj); // get all keys of the element
+        __keys.push(__fileKeys); // add the keys to the array
     });
 
     // check if all keys are the same
@@ -49,7 +53,8 @@ async function __exists(path) { // check if file exists
 
 // get entry from a relational group by its moral
 function __getEntry(dbDir, group, element, moral) {
-    let elementObj = JSON.parse(fs.readFileSync('./' + dbDir + '/' + group + '/' + element + '.json'))
+    let elementObjRaw = JSON.parse(fs.readFileSync('./' + dbDir + '/' + group + '/' + element + '.json'))
+    let elementObj = JSON.parse(__decryptMsg(elementObjRaw["info"]));
     // check if moral is in the element
     let entries = Object.keys(elementObj) // get all entries in the element
     let requiredEntry = null // this will be the required entry if it exists

@@ -1,6 +1,7 @@
-const fs = require('fs')
-const { v4: uuidv4 } = require('uuid')
-const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole } = require('./import/funcs')
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
+const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole } = require('./import/funcs');
+const { __encryptMsg } = require('./import/encryption');
 
 // keywords for the module
 const tokens = {
@@ -88,7 +89,12 @@ function create(token, query1, query2) {
                                 if (!fs.existsSync(path)) {
                                     config['elements'] = parseInt(config['elements']) + 1 // increment the number of elements in the group
                                     fs.writeFileSync('./' + dbDirectory + '/' + query1 + '/__config.json', JSON.stringify(config)) // write the config file
-                                    fs.writeFileSync(path, JSON.stringify(element, null, 4)) // write the element to folder
+
+                                    const encryptedElement = { // the encrypted element
+                                        "info": __encryptMsg(JSON.stringify(element, null, 4))
+                                    }
+
+                                    fs.writeFileSync(path, JSON.stringify(encryptedElement, null, 4)) // write the element to folder
                                     greenConsole('Element created successfully')
                                 } else console.error('\x1b[31m[Err]:\x1b[0m Element already exists')
                             } else console.error('\x1b[31m[Err]:\x1b[0m Elements in the group do not have the same keys, rGroup lost authenticity')
@@ -104,7 +110,12 @@ function create(token, query1, query2) {
                             if (!fs.existsSync(path)) {
                                 config['elements'] = parseInt(config['elements']) + 1 // increment the number of elements in the group
                                 fs.writeFileSync('./' + dbDirectory + '/' + query1 + '/__config.json', JSON.stringify(config)) // write the config file
-                                fs.writeFileSync(path, JSON.stringify(element, null, 4))
+
+                                const encryptedElement = { // the encrypted element
+                                    "info": __encryptMsg(JSON.stringify(element, null, 4))
+                                }
+
+                                fs.writeFileSync(path, JSON.stringify(encryptedElement, null, 4))
                                 greenConsole('Element created successfully')
                             } else console.error('\x1b[31m[Err]:\x1b[0m Element already exists')
                         }

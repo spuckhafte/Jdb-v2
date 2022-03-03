@@ -5,6 +5,7 @@ const assignmentTokens = {
 };
 
 const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole, __exists } = require('./import/funcs');
+const { __encryptMsg, __decryptMsg } = require('./import/encryption');
 const fs = require('fs/promises');
 
 
@@ -40,16 +41,24 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
                         // all elements of group => element1.json, "", ...
                         if (allElementsOfGroup.every(element => elementsOfMoral.includes(element))) {
                             // find the length of first element in group
-                            let firstElement = JSON.parse(await fs.readFile(checkGroupPath + '/' + allElementsOfGroup[0]));
+                            let firstElementRaw = JSON.parse(await fs.readFile(checkGroupPath + '/' + allElementsOfGroup[0]))["info"];
+                            let firstElement = JSON.parse(__decryptMsg(firstElementRaw))
                             let lengthOfFirstElement = Object.keys(firstElement).length; // this value is the entry of new morals in all elements of group
 
                             // put all values of moralObject to elements same as entries
                             elementsOfMoral.forEach(async key => {
                                 let elementPath = './' + dbDirectory + '/' + group + '/' + key; // path of element to be updated
                                 let elementFile = await fs.readFile(elementPath); // read the file
-                                let element = JSON.parse(elementFile); // element to be updated
+
+                                let elementRaw = __decryptMsg(JSON.parse(elementFile)["info"]); // decrypt the info
+                                let element = JSON.parse(elementRaw); // element to be updated
+
                                 key = key.slice(0, -5); // remove .json from key
                                 element[lengthOfFirstElement] = moralObject[key]; // put value of moralObject to element
+
+                                elementRaw = __encryptMsg(JSON.stringify(element, null, 4)); // encrypt the info
+                                element = { "info": elementRaw }; // new element to be written
+
                                 await fs.writeFile(elementPath, JSON.stringify(element, null, 4)); // write the updated element to file
                             })
                             greenConsole('R-Moral assigned successfully');
@@ -73,9 +82,16 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
                                 elementsOfMoral.forEach(async key => {
                                     let elementPath = './' + dbDirectory + '/' + group + '/' + key; // path of element to be updated
                                     let elementFile = await fs.readFile(elementPath); // read the file
-                                    let element = JSON.parse(elementFile); // element to be updated
+
+                                    let elementRaw = __decryptMsg(JSON.parse(elementFile)["info"]); // decrypt the info
+                                    let element = JSON.parse(elementRaw); // element to be updated
+
                                     key = key.slice(0, -5);
                                     element[lengthOfFirstElement] = moralObject[key]; // put value of moralObject to element
+
+                                    elementRaw = __encryptMsg(JSON.stringify(element, null, 4)); // encrypt the info
+                                    element = { "info": elementRaw }; // new element to be written
+
                                     await fs.writeFile(elementPath, JSON.stringify(element, null, 4)); // write the updated element to file
                                 })
                                 greenConsole('R-Morals assigned successfully')
@@ -106,8 +122,15 @@ async function assignI(group, element, primeObject) { // primeObject {prime: val
                     let elementPath = './' + dbDirectory + '/' + group + '/' + element + '.json'; // get the element path
                     if (await __exists(elementPath)) {
                         let elementFile = await fs.readFile(elementPath); // read the element file
-                        let element = JSON.parse(elementFile); // element to be updated
+
+                        let elementRaw = __decryptMsg(JSON.parse(elementFile)["info"]); // decrypt the info
+                        let element = JSON.parse(elementRaw); // element to be updated
+
                         let newElement = Object.assign(element, primeObject); // combine the element and the primeObject
+
+                        elementRaw = __encryptMsg(JSON.stringify(newElement, null, 4)); // encrypt the info
+                        newElement = { "info": elementRaw }; // new element to be written
+
                         await fs.writeFile(elementPath, JSON.stringify(newElement, null, 4)); // write the new element to file
                         greenConsole('I-Moral assigned successfully');
                     } else console.error('\x1b[31m[Err]:\x1b[0m Element does not exist');

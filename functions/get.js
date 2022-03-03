@@ -1,8 +1,9 @@
 const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole, __getEntry } = require('./import/funcs')
+const { __decryptMsg } = require('./import/encryption');
 const tokens = ['entry', 'moral']
 const fs = require('fs');
 
-function getR(group, param, query) {
+function getR(group, param, query) { // parameter for getting info can be: entry or moral
     if (tokens.includes(param)) {
         let dbDirectory = __checkIfDatabaseExists();
         if (dbDirectory !== null && dbDirectory !== undefined) { // db exists?
@@ -16,15 +17,15 @@ function getR(group, param, query) {
                     if (entry > 0) { // entry is valid (not 0)?  [0=>refers to id]
                         let morals = {} // get morals of entry in all elements of group in this this object
                         elements.forEach(element => { // for each element in the group
-                            let elementObj = JSON.parse(fs.readFileSync('./' + dbDirectory + '/' + group + '/' + element)) // get the element
+                            let elementObjRaw = JSON.parse(fs.readFileSync('./' + dbDirectory + '/' + group + '/' + element)); // get the element
+                            let elementObj = JSON.parse(__decryptMsg(elementObjRaw["info"])); // decrypt the element
                             let elementName = element.slice(0, -5) // remove .json from element name
                             morals['entry'] = query // get current entry
+
                             morals[elementName] = elementObj[entry] // set the morals of the entry as the value of elements
                         });
                         return morals
-                    } else {
-                        console.error('\x1b[31m[Err]:\x1b[0m entry must be greater than 0')
-                    }
+                    } else console.error('\x1b[31m[Err]:\x1b[0m entry must be greater than 0');
                 }
 
                 else if (param === 'moral') { // get info of an entry based on its moral (any)
@@ -37,7 +38,7 @@ function getR(group, param, query) {
                             if (requiredEntry !== null) {
                                 let requiredMorals = getR(group, 'entry', requiredEntry) // get details of the required entry
                                 return requiredMorals
-                            } else return null
+                            } else return null;
                         } else console.error('\x1b[31m[Err]:\x1b[0m element does not exist in group')
                     } else console.error('\x1b[31m[Err]:\x1b[0m Query must be an array => [element, moral]')
                 } else console.error('\x1b[31m[Err]:\x1b[0m Parameter is not valid')
@@ -53,7 +54,8 @@ function getEl(group, element) {
             let elements = fs.readdirSync('./' + dbDirectory + '/' + group); // get all elements in the group
             // check if element exists in the group
             if (elements.includes(element + '.json')) {
-                let elementObj = JSON.parse(fs.readFileSync('./' + dbDirectory + '/' + group + '/' + element + '.json'));
+                let elementObjRaw = JSON.parse(fs.readFileSync('./' + dbDirectory + '/' + group + '/' + element + '.json'))["info"];
+                let elementObj = JSON.parse(__decryptMsg(elementObjRaw))
                 return elementObj;
             } else console.error('\x1b[31m[Err]:\x1b[0m element does not exist in group');
         } else console.error('\x1b[31m[Err]:\x1b[0m group does not exist');

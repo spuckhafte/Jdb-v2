@@ -62,7 +62,6 @@ function __getEntry(dbDir, group, element, moral) {
     return requiredEntry
 }
 
-
 function greenConsole(text) {
     console.log('\x1b[32m' + text + '\x1b[0m');
 }

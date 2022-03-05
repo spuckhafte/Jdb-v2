@@ -16,10 +16,11 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
         // check if group exists
         let checkGroupPath = './' + dbDirectory + '/' + group;
         if (await __exists(checkGroupPath)) {
+
             // check if group is relational group
             let checkGroupConfigPath = './' + dbDirectory + '/' + group + '/__config.json';
-
             let groupConfig = JSON.parse(await fs.readFile(checkGroupConfigPath))["type"]; // check the type of group
+
             if (groupConfig == 'rGroup') {
                 // check if group is authentic
                 if (__rGroupIsAuthentic(dbDirectory, group)) {
@@ -28,30 +29,27 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
                         // remove the config file from the list
                         allElementsOfGroup.splice(allElementsOfGroup.indexOf('__config.json'), 1);
 
-                        let elementsOfMoral = Object.keys(moralObject);
-                        let elementsOfMoralNew = []; // new array of elements of moral
-                        elementsOfMoral.forEach(element => {
-                            element = element + '.json'; // add .json from the element names
-                            elementsOfMoralNew.push(element);
+                        let elementsOfMoral = Object.keys(moralObject); // elements in which the morals are to be assigned
+                        elementsOfMoral.forEach((element, index) => {
+                            elementsOfMoral[index] = element + '.json'; // add .json to the element names
                         })
-                        elementsOfMoral = elementsOfMoralNew; // set the new array as the old array
 
                         // check if all elements of morals are present in all elements of group
-                        // elements of moral => element1.json, element2.json, ...
-                        // all elements of group => element1.json, "", ...
+                        // elements of moral => element1.json, element2.json, ... (provided by user)
+                        // all elements of group => element1.json, element2.json, ... (present in the group, the directory)
                         if (allElementsOfGroup.every(element => elementsOfMoral.includes(element))) {
-                            // find the length of first element in group
+                            // find the length of array of the keys of first element in group
                             let firstElement = JSON.parse(await fs.readFile(checkGroupPath + '/' + allElementsOfGroup[0]));
                             let lengthOfFirstElement = Object.keys(firstElement).length; // this value is the entry of new morals in all elements of group
 
-                            // put all values of moralObject to elements same as entries
-                            elementsOfMoral.forEach(async key => {
+                            // put the morals in respective elements at the required entries
+                            elementsOfMoral.forEach(async key => { // key = element
                                 let elementPath = './' + dbDirectory + '/' + group + '/' + key; // path of element to be updated
                                 let elementFile = await fs.readFile(elementPath); // read the file
 
                                 let element = JSON.parse(elementFile); // element to be updated
 
-                                key = key.slice(0, -5); // remove .json from key
+                                key = key.slice(0, -5); // remove .json from element's name
                                 element[lengthOfFirstElement] = __encryptMsg(moralObject[key]); // put value of moralObject to element with encryption
 
                                 await fs.writeFile(elementPath, JSON.stringify(element, null, 4)); // write the updated element to file
@@ -73,8 +71,8 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
                                 let firstElement = JSON.parse(await fs.readFile(checkGroupPath + '/' + allElementsOfGroup[0]));
                                 let lengthOfFirstElement = Object.keys(firstElement).length; // this value is the entry of new morals in all elements of group
 
-                                // put all values of moralObject to elements same as entries
-                                elementsOfMoral.forEach(async key => {
+                                // put the morals in respective elements at the required entries
+                                elementsOfMoral.forEach(async key => { // key = element's name
                                     let elementPath = './' + dbDirectory + '/' + group + '/' + key; // path of element to be updated
                                     let elementFile = await fs.readFile(elementPath); // read the file
 

@@ -1,7 +1,7 @@
 // entry, moralObject => 0, {users(el): rakshit, pass(el): pass}
 const fs = require('fs/promises');
 const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole, __exists } = require('./import/funcs');
-const { __encryptMsg, __decryptMsg } = require('./import/encryption');
+const { __encryptMsg } = require('./import/encryption');
 
 async function editR(group, entry, moralObject) {
     let dbDirectory = __checkIfDatabaseExists(); // checking if database exists

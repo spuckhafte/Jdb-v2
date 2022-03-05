@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole } = require('./import/funcs');
-const { __encryptMsg } = require('./import/encryption');
+const { __encryptMsg, __decryptMsg } = require('./import/encryption');
 
 // keywords for the module
 const tokens = {
@@ -78,7 +78,7 @@ function create(token, query1, query2) {
                                 existingElements = existingElements.filter(_element => _element !== '__config.json')
                                 if (existingElements.length === 0) { // if no element exists
                                     element = {
-                                        0: `${uuidv4()}` // create a new element with a unique key
+                                        0: __encryptMsg(`${uuidv4()}`) // create a new element with a unique key
                                     }
                                 } else {
                                     // create a new element with a unique key based on previous elements
@@ -90,11 +90,7 @@ function create(token, query1, query2) {
                                     config['elements'] = parseInt(config['elements']) + 1 // increment the number of elements in the group
                                     fs.writeFileSync('./' + dbDirectory + '/' + query1 + '/__config.json', JSON.stringify(config)) // write the config file
 
-                                    const encryptedElement = { // the encrypted element
-                                        "info": __encryptMsg(JSON.stringify(element, null, 4))
-                                    }
-
-                                    fs.writeFileSync(path, JSON.stringify(encryptedElement, null, 4)) // write the element to folder
+                                    fs.writeFileSync(path, JSON.stringify(element, null, 4)) // write the element to folder
                                     greenConsole('Element created successfully')
                                 } else console.error('\x1b[31m[Err]:\x1b[0m Element already exists')
                             } else console.error('\x1b[31m[Err]:\x1b[0m Elements in the group do not have the same keys, rGroup lost authenticity')
@@ -104,18 +100,14 @@ function create(token, query1, query2) {
                             let existingElements = fs.readdirSync('./' + dbDirectory + '/' + query1)
                             existingElements == existingElements.filter(_element => _element !== '__config.json')
                             element = {
-                                0: uuidv4()
+                                0: __encryptMsg(`${uuidv4()}`)
                             }
                             // write the element to folder if it does not exist
                             if (!fs.existsSync(path)) {
                                 config['elements'] = parseInt(config['elements']) + 1 // increment the number of elements in the group
                                 fs.writeFileSync('./' + dbDirectory + '/' + query1 + '/__config.json', JSON.stringify(config)) // write the config file
 
-                                const encryptedElement = { // the encrypted element
-                                    "info": __encryptMsg(JSON.stringify(element, null, 4))
-                                }
-
-                                fs.writeFileSync(path, JSON.stringify(encryptedElement, null, 4))
+                                fs.writeFileSync(path, JSON.stringify(element, null, 4))
                                 greenConsole('Element created successfully')
                             } else console.error('\x1b[31m[Err]:\x1b[0m Element already exists')
                         }
@@ -135,11 +127,11 @@ function __createElementsInRGroupsAccordingToAlreadyExistingElements(dbDirectory
     __existingElKeys.shift()
     // create element with a unique key
     let __newElement = {
-        0: `${uuidv4()}`
+        0: __encryptMsg(`${uuidv4()}`)
     }
     // create more keys for the element from the existing keys
     __existingElKeys.forEach(_key => {
-        __newElement[_key] = null
+        __newElement[_key] = __encryptMsg("null")
     })
 
     return __newElement

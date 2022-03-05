@@ -25,8 +25,7 @@ function __rGroupIsAuthentic(dbDir, rGroup) {
     // check if all files have the same keys
     let __keys = []; // this array will contains arrays of keys of all elements
     __files.forEach(__file => {
-        let __fileObjRaw = JSON.parse(fs.readFileSync('./' + dbDir + '/' + rGroup + '/' + __file))["info"];
-        let __fileObj = JSON.parse(__decryptMsg(__fileObjRaw));
+        let __fileObj = JSON.parse(fs.readFileSync('./' + dbDir + '/' + rGroup + '/' + __file));
         let __fileKeys = Object.keys(__fileObj); // get all keys of the element
         __keys.push(__fileKeys); // add the keys to the array
     });
@@ -40,7 +39,7 @@ function __rGroupIsAuthentic(dbDir, rGroup) {
         }
     }
     return __keysAreSame;
-}
+};
 
 async function __exists(path) { // check if file exists
     try {
@@ -49,12 +48,11 @@ async function __exists(path) { // check if file exists
     } catch (err) {
         return false;
     }
-}
+};
 
 // get entry from a relational group by its moral
 function __getEntry(dbDir, group, element, moral) {
-    let elementObjRaw = JSON.parse(fs.readFileSync('./' + dbDir + '/' + group + '/' + element + '.json'))
-    let elementObj = JSON.parse(__decryptMsg(elementObjRaw["info"]));
+    let elementObj = JSON.parse(fs.readFileSync('./' + dbDir + '/' + group + '/' + element + '.json'))
     // check if moral is in the element
     let entries = Object.keys(elementObj) // get all entries in the element
     let requiredEntry = null // this will be the required entry if it exists
@@ -65,10 +63,14 @@ function __getEntry(dbDir, group, element, moral) {
     })
 
     return requiredEntry
-}
+};
 
 function greenConsole(text) {
     console.log('\x1b[32m' + text + '\x1b[0m');
-}
+};
 
-module.exports = { __checkIfDatabaseExists, __rGroupIsAuthentic, __exists, greenConsole, __getEntry };
+function yellowConsole(text) {
+    console.log('\x1b[33m' + text + '\x1b[0m');
+};
+
+module.exports = { __checkIfDatabaseExists, __rGroupIsAuthentic, __exists, greenConsole, yellowConsole, __getEntry };

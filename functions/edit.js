@@ -25,7 +25,7 @@ async function editR(group, entry, moralObject) {
                                 let elementPath = './' + dbDirectory + '/' + group + '/' + element; // path of element to be updated
                                 let elementObj = JSON.parse(await fs.readFile(elementPath)); // read the file
                                 elementObj[entry] = __encryptMsg(moralObject[element.slice(0, -5)]); // put value of moralObject to element with encryption
-                                await fs.writeFile(elementPath, JSON.stringify(elementObj)); // write the file
+                                await fs.writeFile(elementPath, JSON.stringify(elementObj, null, 4)); // write the file
                             })
                             greenConsole("Element/s updated successfully");
 

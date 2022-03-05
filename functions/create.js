@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const { __checkIfDatabaseExists, __rGroupIsAuthentic, greenConsole } = require('./import/funcs');
-const { __encryptMsg, __decryptMsg } = require('./import/encryption');
+const { __encryptMsg } = require('./import/encryption');
 
 // keywords for the module
 const tokens = {

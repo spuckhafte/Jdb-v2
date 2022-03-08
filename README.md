@@ -7,3 +7,4 @@ For contribution: **Discord: spuckhafte#7109**
 1. Organized code
 2. `Assign()` is *asynchronous*.
 3. The morals are encrypted, makes it difficult to read the JSON file
+4. Morals of rGroup elements can be **edited**

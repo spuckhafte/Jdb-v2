@@ -50,7 +50,7 @@ console.log(getR('test_users', 'moral', ['name', 'user232']));
 
 editR('test_users', '1', {
      "name": "spuckhafte",
-     "pass": "hesoyam"
+     "pass": "strong_password"
 })
 // run file and comment out these lines
 

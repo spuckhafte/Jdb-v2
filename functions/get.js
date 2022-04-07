@@ -16,11 +16,11 @@ function getR(group, param, query) { // parameter for getting info can be: entry
             if (groupConfig == 'rGroup') { // if it is a relational group
                 if (__rGroupIsAuthentic(dbDirectory, group)) { // rGroup is authentic?
 
-                    if (param === 'entry') { // get info of an entry based on its entry
+                    if (param === 'entry') { // get info of an element based on its entry
                         // get morals of relational group elements of the same entry
                         let entry = query
                         if (entry > 0) { // entry is valid (not 0)?  [0=>refers to id]
-                            let morals = {} // get morals of entry in all elements of group in this this object
+                            let morals = {} // get morals of entry in all elements of group in this object
                             elements.forEach(element => { // for each element in the group
                                 let elementObj = JSON.parse(fs.readFileSync('./' + dbDirectory + '/' + group + '/' + element)); // get the element
                                 let elementName = element.slice(0, -5) // remove .json from element name

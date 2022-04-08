@@ -9,7 +9,9 @@ For contribution: **Discord: spuckhafte#7109**
 3. The morals are encrypted, makes it difficult to read the JSON file
 4. Morals of rGroup elements can be **edited**
 
-## How?
+### ⚠️You should create your own encryption algorithm at: `./functions/import/encryption.js`
+
+## How To Use?
 1. Download this project
 2. Import it
 ```js

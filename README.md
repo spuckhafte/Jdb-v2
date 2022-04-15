@@ -12,7 +12,11 @@ For contribution: **Discord: spuckhafte#7109**
 ### ⚠️You should create your own encryption algorithm at: `./functions/import/encryption.js`
 
 ## How To Use?
-1. Download this project
+1. Install the package
+```js 
+npm i json-db-jdb
+```
+
 2. Import it
 ```js
 const jdb = require('./Jdb-v2/jdb')

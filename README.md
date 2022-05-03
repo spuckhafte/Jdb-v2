@@ -5,7 +5,7 @@
 This is the latest version of the **JSON Database**.<br>
 For contribution: **Discord: spuckhafte#7109**
 
-**Changes:**<br/><br/>
+## Logs:
 *3 March 22*<br/>
 ⭐ **Organized code<br/>**
 ⭐ **`Assign()` is *asynchronous***<br/><br/>
@@ -15,6 +15,7 @@ For contribution: **Discord: spuckhafte#7109**
 ⭐ Morals of rGroup elements can be **edited**<br/><br/>
 *3 May 22*<br/>
 ⭐ <a href='https://www.npmjs.com/package/encdenc'>EncDenc<a/> module is handling the encryption
+<hr>
 
 ### ⚠️You should edit the config array and make it unique for the best use of EncDenc encryption module:<br/> `./functions/import/encryption.js`
 **Read more at https://www.npmjs.com/package/encdenc**

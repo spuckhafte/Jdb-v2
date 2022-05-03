@@ -57,7 +57,7 @@ function __getEntry(dbDir, group, element, moral) {
     let entries = Object.keys(elementObj) // get all entries in the element
     let requiredEntry = null // this will be the required entry if it exists
     entries.forEach(entry => {
-        if (elementObj[entry] === moral) { // if the moral is in the entry
+        if (__decryptMsg(elementObj[entry]) === moral) { // if the moral is in the entry
             requiredEntry = entry // set the required entry
         }
     })

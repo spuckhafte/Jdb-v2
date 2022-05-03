@@ -8,8 +8,10 @@ For contribution: **Discord: spuckhafte#7109**
 2. `Assign()` is *asynchronous*.
 3. The morals are encrypted, makes it difficult to read the JSON file
 4. Morals of rGroup elements can be **edited**
+5. EncDenc module is handling the encryption
 
-### ⚠️You should create your own encryption algorithm at: `./functions/import/encryption.js`
+### ⚠️You should edit the config array and make it unique, for the best use of EncDenc encryption module: `./functions/import/encryption.js`
+**Read more at https://www.npmjs.com/package/encdenc**
 
 ## How To Use?
 1. Download this project

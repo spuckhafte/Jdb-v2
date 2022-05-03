@@ -35,7 +35,7 @@ function getR(group, param, query) { // parameter for getting info can be: entry
                         // check if query is array
                         if (Array.isArray(query) && query.length == 2) { // query = [element, moral]
                             let element = query[0];
-                            let moral = __encryptMsg(query[1]);
+                            let moral = query[1];
                             if (elements.includes(element + '.json')) { // element exists in group?
                                 let requiredEntry = __getEntry(dbDirectory, group, element, moral) // this will be the required entry if it exists
                                 if (requiredEntry !== null) {

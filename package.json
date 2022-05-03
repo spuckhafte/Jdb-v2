@@ -9,6 +9,7 @@
   "author": "spuckhafte",
   "license": "ISC",
   "dependencies": {
+    "encdenc": "^1.0.2",
     "uuid": "^8.3.2"
   }
 }

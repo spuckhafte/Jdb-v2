@@ -1,14 +1,18 @@
 # Jdb-v2
-**For details check: https://github.com/spuckhafte/JSON-Database**<br>
-This is the second version of the **JSON Database**.<br>
+## **To get the concept, check: https://github.com/spuckhafte/JSON-Database**<br>
+This is the latest version of the **JSON Database**.<br>
 For contribution: **Discord: spuckhafte#7109**
 
-**Changes:**
-1. Organized code
-2. `Assign()` is *asynchronous*.
-3. The morals are encrypted, makes it difficult to read the JSON file
-4. Morals of rGroup elements can be **edited**
-5. EncDenc module is handling the encryption
+**Changes:**<br/><br/>
+*3 March 22*<br/>
+⭐ **Organized code<br/>**
+⭐ **`Assign()` is *asynchronous***<br/><br/>
+*5 March 22*<br/>
+⭐ **The morals are encrypted, makes it difficult to read the JSON file**<br/><br/>
+*8 March 22*<br/>
+⭐ Morals of rGroup elements can be **edited**<br/><br/>
+*3 May 22*<br/>
+⭐ EncDenc module is handling the encryption
 
 ### ⚠️You should edit the config array and make it unique, for the best use of EncDenc encryption module: `./functions/import/encryption.js`
 **Read more at https://www.npmjs.com/package/encdenc**

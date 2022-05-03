@@ -14,7 +14,11 @@ For contribution: **Discord: spuckhafte#7109**
 **Read more at https://www.npmjs.com/package/encdenc**
 
 ## How To Use?
-1. Download this project
+1. Install the package
+```js 
+npm i json-db-jdb
+```
+
 2. Import it
 ```js
 const jdb = require('./Jdb-v2/jdb')

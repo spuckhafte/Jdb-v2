@@ -1,3 +1,5 @@
+![JDb-cropped](https://user-images.githubusercontent.com/70335252/166429064-235decd8-a4ad-4e06-85ef-b4cc81a1d446.jpeg)
+
 # JDb - JSON Database
 ## **To get the concept, check:<br/> https://github.com/spuckhafte/JSON-Database**<br>
 This is the latest version of the **JSON Database**.<br>

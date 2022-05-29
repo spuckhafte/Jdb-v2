@@ -2,6 +2,7 @@ const { create } = require('./functions/create');
 const { getR, getEl } = require('./functions/get');
 const { assignR, assignI } = require('./functions/put');
 const { editR } = require('./functions/edit')
+const { Machine } = require('./functions/import/encryption');
 
 // create('Db', 'data')
 
@@ -41,4 +42,4 @@ const { editR } = require('./functions/edit')
 // console.log(getEl('test_users', 'name'))
 // console.log(getEl('test_users', 'pass'))
 
-module.exports = { create, getR, getEl, assignR, assignI, editR };
+module.exports = { create, getR, getEl, assignR, assignI, editR, Machine };

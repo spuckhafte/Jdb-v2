@@ -29,4 +29,4 @@ function __decryptMsg(msg) {
     return dec;
 }
 
-module.exports = { __encryptMsg, __decryptMsg };
+module.exports = { __encryptMsg, __decryptMsg, Machine };

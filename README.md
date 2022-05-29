@@ -1,16 +1,23 @@
-# Jdb-v2
-**For details check: https://github.com/spuckhafte/JSON-Database**<br>
-This is the second version of the **JSON Database**.<br>
+![JDb-cropped](https://user-images.githubusercontent.com/70335252/166429064-235decd8-a4ad-4e06-85ef-b4cc81a1d446.jpeg)
+
+# JDb - JSON Database
+## **To get the concept, check:<br/> https://github.com/spuckhafte/JSON-Database**<br>
+This is the latest version of the **JSON Database**.<br>
 For contribution: **Discord: spuckhafte#7109**
 
-**Changes:**
-1. Organized code
-2. `Assign()` is *asynchronous*.
-3. The morals are encrypted, makes it difficult to read the JSON file
-4. Morals of rGroup elements can be **edited**
-5. EncDenc module is handling the encryption
+## Logs:
+*3 March 22*<br/>
+⭐ **Organized code<br/>**
+⭐ **`Assign()` is *asynchronous***<br/><br/>
+*5 March 22*<br/>
+⭐ **The morals are encrypted, makes it difficult to read the JSON file**<br/><br/>
+*8 March 22*<br/>
+⭐ Morals of rGroup elements can be **edited**<br/><br/>
+*3 May 22*<br/>
+⭐ <a href='https://www.npmjs.com/package/encdenc'>EncDenc<a/> module is handling the encryption
+<hr>
 
-### ⚠️You should edit the config array and make it unique, for the best use of EncDenc encryption module: `./functions/import/encryption.js`
+### ⚠️You should edit the config array and make it unique for the best use of EncDenc encryption module:<br/> `./functions/import/encryption.js`
 **Read more at https://www.npmjs.com/package/encdenc**
 
 ## How To Use?
@@ -21,7 +28,7 @@ npm i json-db-jdb
 
 2. Import it
 ```js
-const jdb = require('./Jdb-v2/jdb')
+const jdb = require('json-db-jdb/jdb')
 ```
 3. Create database:
 ```js

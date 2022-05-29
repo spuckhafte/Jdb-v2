@@ -19,7 +19,10 @@ For contribution: **Discord: spuckhafte#7109**
 ⭐ Update the config (encdenc) from your main file, *before: you had to update the node module itself in order to update the config*
 <hr>
 
-### ⚠️You should edit the config array and make it unique for the best use of EncDenc encryption module:<br/> `./functions/import/encryption.js`
+### ⚠️You should edit the config array and make it unique for the best use of EncDenc encryption module:<br/>
+```js
+jdb.Machine.config = [ /* unique array */ ]
+```
 **Read more at https://www.npmjs.com/package/encdenc**
 
 ## How To Use?

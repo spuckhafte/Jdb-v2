@@ -14,7 +14,9 @@ For contribution: **Discord: spuckhafte#7109**
 *8 March 22*<br/>
 ⭐ Morals of rGroup elements can be **edited**<br/><br/>
 *3 May 22*<br/>
-⭐ <a href='https://www.npmjs.com/package/encdenc'>EncDenc<a/> module is handling the encryption
+⭐ <a href='https://www.npmjs.com/package/encdenc'>EncDenc<a/> module is handling the encryption<br/><br/>
+*29 May 22*<br/>
+⭐ Update the config (encdenc) from your main file, *before: you had to update the node module itself in order to update the config*
 <hr>
 
 ### ⚠️You should edit the config array and make it unique for the best use of EncDenc encryption module:<br/> `./functions/import/encryption.js`

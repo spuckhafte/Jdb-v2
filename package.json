@@ -1,6 +1,6 @@
 {
   "name": "json-db-jdb",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "json database",
   "main": "jdb.js",
   "scripts": {

@@ -1,14 +1,15 @@
 {
-  "name": "jdb",
-  "version": "2.0.0",
+  "name": "json-db-jdb",
+  "version": "2.1.1",
   "description": "json database",
   "main": "jdb.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "rakshit",
+  "author": "spuckhafte",
   "license": "ISC",
   "dependencies": {
+    "encdenc": "^1.0.2",
     "uuid": "^8.3.2"
   }
 }

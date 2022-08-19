@@ -15,7 +15,7 @@ const tokens = {
     'create': 'function to create a new query'
 }
 
-function create(token, query1, query2) {
+async function create(token, query1, query2) {
 
     // check if token is valid
     if (Object.keys(tokens).includes(token)) {
@@ -71,7 +71,7 @@ function create(token, query1, query2) {
 
                         // check type of group
                         if (config['type'] === 'rGroup') { // relational group
-                            let authenticity = __rGroupIsAuthentic(dbDirectory, query1) // check if all elements have the same keys
+                            let authenticity = await __rGroupIsAuthentic(dbDirectory, query1) // check if all elements have the same keys
                             if (authenticity) { // if all elements have the same keys
                                 // get name of any element in the group (if any)
                                 let existingElements = fs.readdirSync('./' + dbDirectory + '/' + query1)

@@ -17,15 +17,15 @@ function __checkIfDatabaseExists() {
 };
 
 
-function __rGroupIsAuthentic(dbDir, rGroup) {
+async function __rGroupIsAuthentic(dbDir, rGroup) {
     // in relational groups, all elements should have the same keys
     // check if all elements have the same keys
-    let __files = fs.readdirSync('./' + dbDir + '/' + rGroup); // get list of all files
+    let __files = await fsP.readdir('./' + dbDir + '/' + rGroup); // get list of all files
     __files = __files.filter(_file => _file !== '__config.json'); // remove config file
     // check if all files have the same keys
     let __keys = []; // this array will contains arrays of keys of all elements
-    __files.forEach(__file => {
-        let __fileObj = JSON.parse(fs.readFileSync('./' + dbDir + '/' + rGroup + '/' + __file));
+    __files.forEach(async __file => {
+        let __fileObj = JSON.parse(await fsP.readFile('./' + dbDir + '/' + rGroup + '/' + __file));
         let __fileKeys = Object.keys(__fileObj); // get all keys of the element
         __keys.push(__fileKeys); // add the keys to the array
     });

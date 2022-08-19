@@ -14,7 +14,7 @@ async function editR(group, entry, moralObject) {
             let groupConfig = JSON.parse(await fs.readFile(checkGroupConfigPath))["type"]; // check the type of group
             if (groupConfig == "rGroup") {
                 // check if group is authentic
-                if (__rGroupIsAuthentic(dbDirectory, group)) {
+                if (await __rGroupIsAuthentic(dbDirectory, group)) {
                     if (typeof moralObject == "object") {
                         let allElementsOfGroup = await fs.readdir(checkGroupPath); // all elements of group
                         let elementsProvided = Object.keys(moralObject) // all elements provided

@@ -3,7 +3,7 @@ const { __decryptMsg, __encryptMsg } = require('./import/encryption');
 const tokens = ['entry', 'moral']
 const fs = require('fs');
 
-function getR(group, param, query) { // parameter for getting info can be: entry or moral
+async function getR(group, param, query) { // parameter for getting info can be: entry or moral
     if (tokens.includes(param)) {
         let dbDirectory = __checkIfDatabaseExists();
         if (dbDirectory !== null && dbDirectory !== undefined) { // db exists?
@@ -14,7 +14,7 @@ function getR(group, param, query) { // parameter for getting info can be: entry
             let groupConfig = JSON.parse(fs.readFileSync(checkGroupConfigPath))["type"]; // check the type of group
 
             if (groupConfig == 'rGroup') { // if it is a relational group
-                if (__rGroupIsAuthentic(dbDirectory, group)) { // rGroup is authentic?
+                if (await __rGroupIsAuthentic(dbDirectory, group)) { // rGroup is authentic?
 
                     if (param === 'entry') { // get info of an element based on its entry
                         // get morals of relational group elements of the same entry
@@ -39,7 +39,7 @@ function getR(group, param, query) { // parameter for getting info can be: entry
                             if (elements.includes(element + '.json')) { // element exists in group?
                                 let requiredEntry = __getEntry(dbDirectory, group, element, moral) // this will be the required entry if it exists
                                 if (requiredEntry !== null) {
-                                    let requiredMorals = getR(group, 'entry', requiredEntry) // get details of the required entry
+                                    let requiredMorals = await getR(group, 'entry', requiredEntry) // get details of the required entry
                                     return requiredMorals
                                 } else return null;
                             } else console.error('\x1b[31m[Err]:\x1b[0m element does not exist in group')

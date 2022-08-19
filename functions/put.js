@@ -23,7 +23,7 @@ async function assignR(group, moralObject) {  // moralObject = {users(el): raksh
 
             if (groupConfig == 'rGroup') {
                 // check if group is authentic
-                if (__rGroupIsAuthentic(dbDirectory, group)) {
+                if (await __rGroupIsAuthentic(dbDirectory, group)) {
                     if (typeof moralObject == 'object') {
                         let allElementsOfGroup = await fs.readdir(checkGroupPath);
                         // remove the config file from the list

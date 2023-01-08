@@ -86,8 +86,8 @@ console.log(getEl('test_users', 'name'));
 console.log(getEl('test_users', 'pass'));
 
 // Params: GroupName, GetWithRespectTo, Query
-console.log(getR('test_users', 'entry', '1'));
-console.log(getR('test_users', 'moral', ['name', 'user232']));
+getR('test_users', 'entry', '1').then(data => console.log(data))
+getR('test_users', 'moral', ['name', 'user232']).then(data => console.log(data));
 // run file and comment out these lines
 ```
 9. Edit rGroup elements
@@ -102,8 +102,8 @@ editR('test_users', '1', {
 10. Get the edited data
 ```js
 // Params: GroupName, GetWithRespectTo, Query
-console.log(getR('test_users', 'entry', '1'))
-console.log(getR('test_users', 'moral', ['name', 'spuckhafte']))
+getR('test_users', 'entry', '1').then(data => console.log(data));
+getR('test_users', 'moral', ['name', 'spuckhafte']).then(data => console.log(data));
 // run file and comment out these lines
 ```
 11. Get everything one last time

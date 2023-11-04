@@ -1,6 +1,37 @@
-const EncryptionMachine = require('encdenc')
+class EncryptionMachine {
+    config: number[];
+
+    constructor() {
+        this.config = []
+    }
+
+    encrypt(word: string) {
+        const _start = Math.floor(Math.random() * this.config.length);
+        let start = _start;
+        let encrypted = '';
+        for (let letter of word) {
+            encrypted += (letter.charCodeAt(0) + this.config[start]).toString(2) + ' ';
+            start = start === this.config.length - 1 ? 0 : start + 1;
+        }
+        return `${encrypted}\b-${_start}`;
+    }
+
+    decrypt(word: string) {
+        let [encrypted, start] = word.split('-');
+        let startIndex = parseInt(start);
+        let decrypted = '';
+        for (let letter of encrypted.split(' ')) {
+            decrypted += String.fromCharCode(parseInt(letter, 2) - this.config[startIndex]);
+            startIndex = startIndex === this.config.length - 1 ? 0 : startIndex + 1;
+        }
+        // remove \x00 character
+        return decrypted.replace(/\x00/g, '');
+    }
+}
 
 class JdbEncryptionMachine extends EncryptionMachine {
+    dataEncryption: boolean;
+
     constructor() {
         super();
         this.dataEncryption = true;
@@ -23,14 +54,14 @@ Machine.config = [
     447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471, 473, 475, 477, 479, 481, 483, 485, 487, 489, 491, 493, 495, 497,
 ]
 
-function __encryptMsg(msg) {
+function __encryptMsg(msg: string) {
     let enc = Machine.dataEncryption ? Machine.encrypt(msg) : msg;
     return enc;
 }
 
-function __decryptMsg(msg) {
+function __decryptMsg(msg: string) {
     let dec = Machine.dataEncryption ? Machine.decrypt(msg) : msg;
     return dec;
 }
 
-module.exports = { __encryptMsg, __decryptMsg, Machine };
+export { __encryptMsg, __decryptMsg, Machine };

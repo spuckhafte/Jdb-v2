@@ -1,16 +1,35 @@
-const EncryptionMachine = require('encdenc')
-
+class EncryptionMachine {
+    constructor() {
+        this.config = [];
+    }
+    encrypt(word) {
+        const _start = Math.floor(Math.random() * this.config.length);
+        let start = _start;
+        let encrypted = '';
+        for (let letter of word) {
+            encrypted += (letter.charCodeAt(0) + this.config[start]).toString(2) + ' ';
+            start = start === this.config.length - 1 ? 0 : start + 1;
+        }
+        return `${encrypted}\b-${_start}`;
+    }
+    decrypt(word) {
+        let [encrypted, start] = word.split('-');
+        let startIndex = parseInt(start);
+        let decrypted = '';
+        for (let letter of encrypted.split(' ')) {
+            decrypted += String.fromCharCode(parseInt(letter, 2) - this.config[startIndex]);
+            startIndex = startIndex === this.config.length - 1 ? 0 : startIndex + 1;
+        }
+        return decrypted.replace(/\x00/g, '');
+    }
+}
 class JdbEncryptionMachine extends EncryptionMachine {
     constructor() {
         super();
         this.dataEncryption = true;
     }
 }
-
-const Machine = new JdbEncryptionMachine()
-
-// edit the config array and make sure it is private and unique.
-
+const Machine = new JdbEncryptionMachine();
 Machine.config = [
     13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 71, 73, 75,
     79, 81, 83, 85, 87, 89, 91, 93, 95, 97, 99, 101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125, 127, 129, 131, 133,
@@ -21,16 +40,13 @@ Machine.config = [
     343, 345, 347, 349, 351, 353, 355, 357, 359, 361, 363, 365, 367, 369, 371, 373, 375, 377, 379, 381, 383, 385, 387, 389, 391, 393,
     395, 397, 399, 401, 403, 405, 407, 409, 411, 413, 415, 417, 419, 421, 423, 425, 427, 429, 431, 433, 435, 437, 439, 441, 443, 445,
     447, 449, 451, 453, 455, 457, 459, 461, 463, 465, 467, 469, 471, 473, 475, 477, 479, 481, 483, 485, 487, 489, 491, 493, 495, 497,
-]
-
+];
 function __encryptMsg(msg) {
     let enc = Machine.dataEncryption ? Machine.encrypt(msg) : msg;
     return enc;
 }
-
 function __decryptMsg(msg) {
     let dec = Machine.dataEncryption ? Machine.decrypt(msg) : msg;
     return dec;
 }
-
-module.exports = { __encryptMsg, __decryptMsg, Machine };
+export { __encryptMsg, __decryptMsg, Machine };

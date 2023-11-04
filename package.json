@@ -1,6 +1,6 @@
 {
   "name": "json-db-jdb",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "json database",
   "main": "jdb.js",
   "scripts": {
@@ -11,5 +11,10 @@
   "dependencies": {
     "encdenc": "^1.0.2",
     "uuid": "^8.3.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@types/uuid": "^9.0.6"
   }
 }

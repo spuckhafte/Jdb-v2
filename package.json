@@ -1,8 +1,8 @@
 {
   "name": "json-db-jdb",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "json database",
-  "main": "jdb.js",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
